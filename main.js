@@ -2,22 +2,22 @@
    WEDDING CONFIG — edit everything here to customise the card
    ═══════════════════════════════════════════════════════════ */
 const WEDDING = {
-  groom:       'Adam',
-  bride:       'Hawa',
-  groomParent: 'Ahmad bin Abdullah & Fatimah binti Hassan',
-  brideParent:  'Ibrahim bin Ismail & Khadijah binti Yusof',
-  hashtag:     '#AdamHawa',
+  groom:       'Aiman',
+  bride:       'Arifah',
+  groomParent: 'Mohamad Daud bin Hashim & Norhazana binti Mohd Salih',
+  brideParent:  'Ruslan bin Ahmad & Roszaina binti Mohd Alide',
+  hashtag:     '#AimanArifah',
 
-  date:      '2026-08-03',
-  timeStart: '11:00',
-  timeEnd:   '17:00',
+  date:      '2026-08-22',
+  timeStart: '20:00',
+  timeEnd:   '22:30',
   timeZone:  'Asia/Kuala_Lumpur',
 
-  venue:   'Glass House Glenmarie',
-  address: 'LOT 16859, 3 Stone Park\nJalan Penyair U1/44\nHicom-Glenmarie Industrial Park\n40150 Shah Alam, Selangor',
+  venue:   'Rumah Pengantin',
+  address: 'No 1, Jalan Pandan Indah 5D\Taman Pandan Indah\n75250 Melaka',
 
-  mapsUrl: 'https://maps.app.goo.gl/placeholder',
-  wazeUrl: 'https://waze.com/ul?q=Glass+House+Glenmarie',
+  mapsUrl: 'https://maps.app.goo.gl/xaXxwDHViyFTFBDPA?g_st=iwb',
+  wazeUrl: 'https://waze.com/ul/hw22sw4qss',
 
   // ⚠️  Replace with a video whose owner allows embedding.
   // To check: open the video on YouTube → Share → Embed.
