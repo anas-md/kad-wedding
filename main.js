@@ -14,7 +14,7 @@ const WEDDING = {
   timeZone:  'Asia/Kuala_Lumpur',
 
   venue:   'Rumah Pengantin',
-  address: 'No 1, Jalan Pandan Indah 5D\Taman Pandan Indah\n75250 Melaka',
+  address: 'No 1, Jalan Pandan Indah 5D\nTaman Pandan Indah\n75250 Melaka',
 
   mapsUrl: 'https://maps.app.goo.gl/xaXxwDHViyFTFBDPA?g_st=iwb',
   wazeUrl: 'https://waze.com/ul/hw22sw4qss',
@@ -25,17 +25,17 @@ const WEDDING = {
   youtubeId: 'QgaTQ5-XfMM',
 
   programme: [
-    { event: 'Arrival of Guests',             time: '11:00 AM' },
-    { event: 'Arrival of Bride & Groom',      time: '12:30 PM' },
-    { event: 'Wedding Ceremony',              time: '1:00 PM'  },
-    { event: 'Lunch & Reception',             time: '1:30 PM'  },
-    { event: 'End of Ceremony',               time: '5:00 PM'  },
+    { event: 'Arrival of Guests',             time: '7:30 PM' },
+    { event: 'Arrival of Bride & Groom',      time: '8:00 PM' },
+    { event: 'Wedding Ceremony',              time: '8:15 PM'  },
+    { event: 'Dinner & Reception',             time: '8:30 PM'  },
+    { event: 'End of Ceremony',               time: '10:00 PM'  },
   ],
 
   contacts: [
-    { name: 'Ahmad',   relation: 'Father of Groom', phone: '+601X-XXXXXXX' },
-    { name: 'Fatimah', relation: 'Mother of Groom', phone: '+601X-XXXXXXX' },
-    { name: 'Ibrahim', relation: 'Father of Bride',  phone: '+601X-XXXXXXX' },
+    { name: 'Aiman',   relation: 'Groom', phone: '+601X-XXXXXXX' },
+    { name: 'Arifah', relation: 'Bride', phone: '+601X-XXXXXXX' },
+    { name: 'Norhazana', relation: 'Mother of Groom',  phone: '+601X-XXXXXXX' },
   ],
 
   gifts: {
