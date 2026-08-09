@@ -25,30 +25,29 @@ const WEDDING = {
   youtubeId: 'QgaTQ5-XfMM',
 
   programme: [
-    { event: 'Arrival of Guests',             time: '7:30 PM' },
-    { event: 'Arrival of Bride & Groom',      time: '8:00 PM' },
-    { event: 'Wedding Ceremony',              time: '8:15 PM'  },
-    { event: 'Dinner & Reception',             time: '8:30 PM'  },
-    { event: 'End of Ceremony',               time: '10:00 PM'  },
+    { event: 'Ketibaan Tetamu',               time: '7:30 PM' },
+    { event: 'Ketibaan Pengantin',            time: '8:00 PM' },
+    { event: 'Majlis Akad Nikah',             time: '8:15 PM'  },
+    { event: 'Jamuan Makan Malam',            time: '8:30 PM'  },
+    { event: 'Penutup Majlis',                time: '10:00 PM'  },
   ],
 
   contacts: [
-    { name: 'Aiman',   relation: 'Groom', phone: '+601X-XXXXXXX' },
-    { name: 'Arifah', relation: 'Bride', phone: '+601X-XXXXXXX' },
-    { name: 'Norhazana', relation: 'Mother of Groom',  phone: '+601X-XXXXXXX' },
+    { name: 'Aiman',   relation: 'Pengantin Lelaki', phone: '+601X-XXXXXXX' },
+    { name: 'Arifah', relation: 'Pengantin Perempuan', phone: '+601X-XXXXXXX' },
+    { name: 'Norhazana', relation: 'Ibu Pengantin Lelaki',  phone: '+601X-XXXXXXX' },
   ],
 
   gifts: {
     qrCodes: [
-      { label: "Touch 'n Go", image: 'assets/qr-tng.png'     },
-      { label: 'Maybank',     image: 'assets/qr-maybank.png' },
+      { label: "Touch 'n Go", image: 'assets/qr-tng.jpg' },
     ],
     wishlist: [
       // { name: 'Philips Rice Cooker', store: 'Shopee', image: 'assets/wish-1.jpg', url: '#' },
     ],
   },
 
-  // Paste Google Apps Script Web App URL here after setup (see bottom of file)
+  // Google Apps Script Web App URL 
   rsvpEndpoint: '',
 };
 
@@ -87,7 +86,7 @@ function populateHero() {
   setText('hero-bride', WEDDING.bride);
   setText('footer-names', `${WEDDING.groom} & ${WEDDING.bride}`);
   const d = parseDate();
-  setText('footer-date', new Intl.DateTimeFormat('en-MY', {
+  setText('footer-date', new Intl.DateTimeFormat('ms-MY', {
     day: 'numeric', month: 'long', year: 'numeric', timeZone: WEDDING.timeZone,
   }).format(d));
 }
@@ -95,8 +94,8 @@ function populateHero() {
 function populateDetails() {
   const d = parseDate();
   // Inline date/time
-  const dayFmt  = new Intl.DateTimeFormat('en-MY', { weekday: 'long', timeZone: WEDDING.timeZone });
-  const dateFmt = new Intl.DateTimeFormat('en-MY', { day: 'numeric', month: 'long', year: 'numeric', timeZone: WEDDING.timeZone });
+  const dayFmt  = new Intl.DateTimeFormat('ms-MY', { weekday: 'long', timeZone: WEDDING.timeZone });
+  const dateFmt = new Intl.DateTimeFormat('ms-MY', { day: 'numeric', month: 'long', year: 'numeric', timeZone: WEDDING.timeZone });
   setText('dt-day',  dayFmt.format(d));
   setText('dt-date', dateFmt.format(d));
   setText('dt-time', `${to12h(WEDDING.timeStart)} – ${to12h(WEDDING.timeEnd)}`);
@@ -173,7 +172,7 @@ function populateContacts() {
         <div class="contact-name">${esc(c.name)}</div>
         <div class="contact-relation">${esc(c.relation)}</div>
       </div>
-      <a class="contact-call" href="tel:${esc(c.phone)}" aria-label="Call ${esc(c.name)}">
+      <a class="contact-call" href="tel:${esc(c.phone)}" aria-label="Hubungi ${esc(c.name)}">
         <i class="bi bi-telephone-fill"></i>
       </a>`;
     list.appendChild(item);
@@ -185,7 +184,7 @@ function populateGift() {
   WEDDING.gifts.qrCodes.forEach(q => {
     const item = document.createElement('div');
     item.className = 'qr-item';
-    item.innerHTML = `<img src="${esc(q.image)}" alt="${esc(q.label)} QR code"><span class="qr-label">${esc(q.label)}</span>`;
+    item.innerHTML = `<img src="${esc(q.image)}" alt="Kod QR ${esc(q.label)}"><span class="qr-label">${esc(q.label)}</span>`;
     qrList.appendChild(item);
   });
   const wishlist = document.getElementById('wishlist');
@@ -253,7 +252,7 @@ function addScrollHint() {
   const hint = document.createElement('div');
   hint.className = 'scroll-hint';
   hint.id = 'scroll-hint';
-  hint.innerHTML = `<i class="bi bi-chevron-compact-down"></i><span>SCROLL</span>`;
+  hint.innerHTML = `<i class="bi bi-chevron-compact-down"></i><span>GESER</span>`;
   document.getElementById('card').appendChild(hint);
   setTimeout(() => hint.classList.add('visible'), 200);
 
@@ -379,7 +378,7 @@ function startCountdown() {
    CALENDAR EXPORT
    ═══════════════════════════════════════════════════════════ */
 function buildCalendarLinks(d) {
-  const title = encodeURIComponent(`Wedding of ${WEDDING.groom} & ${WEDDING.bride}`);
+  const title = encodeURIComponent(`Perkahwinan ${WEDDING.groom} & ${WEDDING.bride}`);
   const loc   = encodeURIComponent(`${WEDDING.venue}, ${WEDDING.address.replace(/\n/g, ', ')}`);
   const start = toCalStr(d, WEDDING.timeStart);
   const end   = toCalStr(d, WEDDING.timeEnd);
@@ -438,24 +437,24 @@ function setupRsvp() {
     const name      = document.getElementById('rsvp-name').value.trim();
     const message   = document.getElementById('rsvp-message').value.trim();
     const attending = hiddenField.value;
-    if (!name) { showFeedback(feedback, 'Please enter your name.', 'error'); return; }
+    if (!name) { showFeedback(feedback, 'Sila masukkan nama anda.', 'error'); return; }
     if (!WEDDING.rsvpEndpoint) {
-      showFeedback(feedback, 'RSVP endpoint not configured yet — see setup instructions in main.js.', 'error');
+      showFeedback(feedback, 'Endpoint RSVP belum dikonfigurasi — sila rujuk arahan setup dalam main.js.', 'error');
       return;
     }
-    submitBtn.disabled = true; submitBtn.textContent = 'Sending…';
+    submitBtn.disabled = true; submitBtn.textContent = 'Menghantar…';
     try {
       const res  = await fetch(WEDDING.rsvpEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, attending, message }), mode: 'cors' });
       const json = await res.json();
       if (json.success) {
-        showFeedback(feedback, 'Thank you! Your RSVP has been received. 🎉', 'success');
+        showFeedback(feedback, 'Terima kasih. RSVP anda telah diterima. 🎉', 'success');
         form.reset();
         btnAttend.classList.add('active'); btnAbsent.classList.remove('active'); hiddenField.value = 'attending';
         if (json.wishes) renderWishes(json.wishes);
         else loadWishes();
       } else throw new Error('Server error');
-    } catch { showFeedback(feedback, 'Something went wrong. Please try again.', 'error'); }
-    finally { submitBtn.disabled = false; submitBtn.textContent = 'Send RSVP'; }
+    } catch { showFeedback(feedback, 'Terdapat ralat. Sila cuba semula.', 'error'); }
+    finally { submitBtn.disabled = false; submitBtn.textContent = 'Hantar RSVP'; }
   });
 }
 
@@ -499,7 +498,7 @@ function parseDate(withTime = false) {
     : new Date(`${WEDDING.date}T00:00:00`);
 }
 function formatShortDate(d) {
-  return new Intl.DateTimeFormat('en-MY', {
+  return new Intl.DateTimeFormat('ms-MY', {
     weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', timeZone: WEDDING.timeZone,
   }).format(d);
 }
