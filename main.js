@@ -25,23 +25,20 @@ const WEDDING = {
   youtubeId: 'QgaTQ5-XfMM',
 
   programme: [
-    { event: 'Ketibaan Tetamu',               time: '7:30 PM' },
-    { event: 'Ketibaan Pengantin',            time: '8:00 PM' },
-    { event: 'Majlis Akad Nikah',             time: '8:15 PM'  },
-    { event: 'Jamuan Makan Malam',            time: '8:30 PM'  },
-    { event: 'Penutup Majlis',                time: '10:00 PM'  },
+    { event: 'Ketibaan Tetamu',               time: '8:15 PM' },
+    { event: 'Jamuan Makan',                  time: '8:30 PM' },
+    { event: 'Ketibaan Pengantin',            time: '8:45 PM'  },
+    { event: 'Penutup Majlis',                time: '12:00 AM'  },
   ],
 
   contacts: [
     { name: 'Aiman',   relation: 'Pengantin Lelaki', phone: '+601X-XXXXXXX' },
     { name: 'Arifah', relation: 'Pengantin Perempuan', phone: '+601X-XXXXXXX' },
     { name: 'Norhazana', relation: 'Ibu Pengantin Lelaki',  phone: '+601X-XXXXXXX' },
+    { name: 'Hairul', relation: 'Bapa Pengantin Perempuan', phone: '+60163140409' },
   ],
 
   gifts: {
-    qrCodes: [
-      { label: "Touch 'n Go", image: 'assets/qr-tng.jpg' },
-    ],
     wishlist: [
       // { name: 'Philips Rice Cooker', store: 'Shopee', image: 'assets/wish-1.jpg', url: '#' },
     ],
@@ -180,13 +177,6 @@ function populateContacts() {
 }
 
 function populateGift() {
-  const qrList = document.getElementById('gift-qr-list');
-  WEDDING.gifts.qrCodes.forEach(q => {
-    const item = document.createElement('div');
-    item.className = 'qr-item';
-    item.innerHTML = `<img src="${esc(q.image)}" alt="Kod QR ${esc(q.label)}"><span class="qr-label">${esc(q.label)}</span>`;
-    qrList.appendChild(item);
-  });
   const wishlist = document.getElementById('wishlist');
   if (!WEDDING.gifts.wishlist.length) { wishlist.style.display = 'none'; return; }
   WEDDING.gifts.wishlist.forEach(w => {

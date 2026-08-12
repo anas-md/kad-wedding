@@ -14,10 +14,6 @@ FLORAL IMAGES (transparent PNG, ~400–600px wide)
     https://www.pngwing.com/en/search?q=watercolor+floral
     Search: "watercolor floral corner transparent PNG free"
 
-GIFT QR CODES
-  qr-tng.png      — Touch 'n Go eWallet QR code (screenshot from TnG app)
-  qr-maybank.png  — Maybank DuitNow QR code (or replace with your bank)
-
 OPTIONAL WISHLIST PRODUCT IMAGES
   wish-1.jpg, wish-2.jpg, ... — product photos for wishlist items
   (configure in WEDDING.gifts.wishlist inside main.js)
