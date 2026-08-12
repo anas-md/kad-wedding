@@ -32,10 +32,10 @@ const WEDDING = {
   ],
 
   contacts: [
-    { name: 'Aiman',   relation: 'Pengantin Lelaki', phone: '+601X-XXXXXXX' },
-    { name: 'Arifah', relation: 'Pengantin Perempuan', phone: '+601X-XXXXXXX' },
-    { name: 'Norhazana', relation: 'Ibu Pengantin Lelaki',  phone: '+601X-XXXXXXX' },
-    { name: 'Hairul', relation: 'Bapa Pengantin Perempuan', phone: '+60163140409' },
+    { name: 'Aiman',   relation: 'Pengantin Lelaki', phone: '0139546016' },
+    { name: 'Arifah', relation: 'Pengantin Perempuan', phone: '01XXXXXXXX' },
+    { name: 'Norhazana', relation: 'Ibu Pengantin Lelaki',  phone: '0139458357' },
+    { name: 'Hairul', relation: 'Bapa Pengantin Perempuan', phone: '0163140409' },
   ],
 
   gifts: {
