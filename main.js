@@ -1,7 +1,6 @@
 /* ═══════════════════════════════════════════════════════════
    WEDDING CONFIG — public, non-sensitive values
    Private values are merged in from config.js (loaded first).
-   Backend setup instructions live in docs/BACKEND_SETUP.md
    ═══════════════════════════════════════════════════════════ */
 const WEDDING = {
   groom:   'Aiman',
@@ -9,10 +8,10 @@ const WEDDING = {
   hashtag: '#AimanArifah',
 
   date:      '2026-08-22',
-  timeStart: '20:00',
-  timeEnd:   '23:00',
+  timeStart: '20:15',
+  timeEnd:   '00:00',        // 12:00 AM — crosses midnight into 23 Aug (see endDateStr())
   timeZone:  'Asia/Kuala_Lumpur',
-  utcOffset: '+08:00',        // Malaysia has no DST
+  utcOffset: '+08:00',       // Malaysia has no DST
 
   venue: 'Rumah Pengantin',
 
@@ -25,7 +24,7 @@ const WEDDING = {
     { event: 'Ketibaan Tetamu',    time: '8:15 PM' },
     { event: 'Jamuan Makan',       time: '8:30 PM' },
     { event: 'Ketibaan Pengantin', time: '8:45 PM' },
-    { event: 'Penutup Majlis',     time: '11:00 PM' },
+    { event: 'Penutup Majlis',     time: '12:00 AM' },
   ],
 
   gifts: { wishlist: [] },
@@ -87,9 +86,11 @@ function populateDetails() {
   const dateFmt = new Intl.DateTimeFormat('ms-MY', { day: 'numeric', month: 'long', year: 'numeric', timeZone: WEDDING.timeZone });
   const timeStr = `${to12h(WEDDING.timeStart)} – ${to12h(WEDDING.timeEnd)}`;
 
+  // TARIKH / MASA (inline)
   setText('dt-day',  dayFmt.format(d));
   setText('dt-date', dateFmt.format(d));
   setText('dt-time', timeStr);
+  // TARIKH & MASA (popup)
   setText('pdt-day',  dayFmt.format(d));
   setText('pdt-date', dateFmt.format(d));
   setText('pdt-time', timeStr);
@@ -182,7 +183,7 @@ function createYTPlayer(autoplay) {
 function populateSong() { /* player created lazily in reveal() */ }
 
 /* ═══════════════════════════════════════════════════════════
-   OPEN BUTTON (BUKA)
+   BUKA BUTTON
    ═══════════════════════════════════════════════════════════ */
 function setupOpenButton() {
   const btn   = document.getElementById('open-btn');
@@ -317,7 +318,7 @@ function closePopup() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   COUNTDOWN (MENGIRA HARI) — same result in every timezone
+   MENGIRA HARI — identical result in every timezone
    ═══════════════════════════════════════════════════════════ */
 function startCountdown() {
   const targetMs = parseDate(true).getTime();
@@ -344,14 +345,14 @@ function startCountdown() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CALENDAR EXPORT
+   CALENDAR EXPORT — midnight-crossing aware
    ═══════════════════════════════════════════════════════════ */
 function buildCalendarLinks() {
   const title = `Perkahwinan ${WEDDING.groom} & ${WEDDING.bride}`;
   const loc   = `${WEDDING.venue}, ${String(WEDDING.address).replace(/\n/g, ', ')}`;
   const gcal  = 'https://calendar.google.com/calendar/r/eventedit'
     + `?text=${encodeURIComponent(title)}`
-    + `&dates=${toCalUTC(WEDDING.timeStart)}/${toCalUTC(WEDDING.timeEnd)}`
+    + `&dates=${toCalUTC(WEDDING.date, WEDDING.timeStart)}/${toCalUTC(endDateStr(), WEDDING.timeEnd)}`
     + `&location=${encodeURIComponent(loc)}`
     + `&ctz=${encodeURIComponent(WEDDING.timeZone)}`;
 
@@ -371,15 +372,25 @@ function buildCalendarLinks() {
   });
 }
 
-function toCalUTC(timeStr) {
-  const d = new Date(`${WEDDING.date}T${timeStr}:00${WEDDING.utcOffset}`);
+// If timeEnd is at or before timeStart, the majlis crosses midnight → next day
+function endDateStr() {
+  const [sh, sm] = WEDDING.timeStart.split(':').map(Number);
+  const [eh, em] = WEDDING.timeEnd.split(':').map(Number);
+  if (eh * 60 + em > sh * 60 + sm) return WEDDING.date;
+  const d = new Date(`${WEDDING.date}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + 1);
+  return d.toISOString().slice(0, 10);
+}
+
+function toCalUTC(dateStr, timeStr) {
+  const d = new Date(`${dateStr}T${timeStr}:00${WEDDING.utcOffset}`);
   const p = n => String(n).padStart(2, '0');
   return `${d.getUTCFullYear()}${p(d.getUTCMonth() + 1)}${p(d.getUTCDate())}`
        + `T${p(d.getUTCHours())}${p(d.getUTCMinutes())}00Z`;
 }
 
-function toCalLocal(timeStr) {
-  return `${WEDDING.date.replace(/-/g, '')}T${timeStr.replace(':', '')}00`;
+function toCalLocal(dateStr, timeStr) {
+  return `${dateStr.replace(/-/g, '')}T${timeStr.replace(':', '')}00`;
 }
 
 function buildICS(title, loc) {
@@ -387,8 +398,8 @@ function buildICS(title, loc) {
   return [
     'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Wedding Card//EN','CALSCALE:GREGORIAN','BEGIN:VEVENT',
     `UID:${WEDDING.date}-aimanarifah@aimanandarifah.my`,
-    `DTSTART;TZID=${WEDDING.timeZone}:${toCalLocal(WEDDING.timeStart)}`,
-    `DTEND;TZID=${WEDDING.timeZone}:${toCalLocal(WEDDING.timeEnd)}`,
+    `DTSTART;TZID=${WEDDING.timeZone}:${toCalLocal(WEDDING.date, WEDDING.timeStart)}`,
+    `DTEND;TZID=${WEDDING.timeZone}:${toCalLocal(endDateStr(), WEDDING.timeEnd)}`,
     `SUMMARY:${escICS(title)}`,
     `LOCATION:${escICS(loc)}`,
     'END:VEVENT','END:VCALENDAR',
@@ -463,7 +474,7 @@ function setupRsvp() {
   });
 }
 
-// Accepts 'attending' / 'not-attending' / 'yes' / 'no' / 'hadir' / 'tidak-hadir'
+// Accepts 'attending'/'not-attending'/'yes'/'no'/'hadir'/'tidak-hadir'
 function normalizeAttending(v) {
   const s = String(v || '').toLowerCase();
   return /(^no$|not|tidak|tak)/.test(s) ? 'no' : 'yes';
