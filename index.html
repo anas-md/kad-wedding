@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="robots" content="noindex, nofollow">
   <meta name="title" content="Jemputan Walimatulurus">
   <meta name="description" content="Anda dijemput hadir ke majlis walimatulurus kami.">
   <title>Walimatulurus Aiman & Arifah</title>
@@ -268,6 +269,10 @@
       <div class="form-group mt-2">
         <textarea id="rsvp-message" class="rsvp-input" rows="3" placeholder="Tinggalkan ucapan atau doa (pilihan)" maxlength="300"></textarea>
       </div>
+      <div class="hp-field" aria-hidden="true">
+        <label for="rsvp-website">Website</label>
+        <input type="text" id="rsvp-website" name="website" tabindex="-1" autocomplete="off">
+      </div>
       <button type="submit" class="btn-submit mt-3" id="rsvp-submit">Hantar RSVP</button>
       <p id="rsvp-feedback" class="rsvp-feedback"></p>
     </form>
@@ -279,6 +284,7 @@
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <!-- YouTube IFrame Player API -->
 <script src="https://www.youtube.com/iframe_api"></script>
+<script src="config.js"></script>
 <script src="main.js"></script>
 </body>
 </html>
